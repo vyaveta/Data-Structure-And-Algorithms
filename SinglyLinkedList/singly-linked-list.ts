@@ -12,6 +12,7 @@ interface LinkedList{
     removeHeadNode: () => void,
     removeTailNode: () => void,
     sortAscending: () => void | LinkedList | boolean,
+    sortDescending: () => void | LinkedList | boolean,
 }
  
 
@@ -126,15 +127,30 @@ const createLinkedList = () => {
                 let current : Node | null = lock.next
                 while(current != null){
                     if(lock.data > current.data){
-                        let temp : number = current.data
-                        current.data = lock.data
-                        lock.data = temp
+                        [current.data, lock.data] = [lock.data,current.data]
                     }
                     current = current.next
                 }
                 lock = lock.next
             }
+            return this
         },
+        sortDescending(){
+            if(!this.head) return false
+            if(this.head === this.tail) return this
+            let lock : Node | null = this.head
+            while(lock != null){
+                let current : Node | null = lock.next
+                while(current != null){
+                    if(current.data > lock.data){
+                        [current.data,lock.data] = [lock.data,current.data]
+                    }
+                    current = current.next
+                }
+                lock = lock.next
+            }
+            return this
+        }
     }
     return list
 }
@@ -150,4 +166,5 @@ list.push(2)
 list.push(4)
 list.addNewElementInFront(90)
 list.sortAscending()
+list.sortDescending()
 printAllValues(list)
