@@ -2,7 +2,6 @@ interface Node {
     data: number,
     next: Node | null,
 }
-
 interface LinkedList{
     head: Node | null,
     tail: null | Node,
