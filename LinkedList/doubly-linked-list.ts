@@ -12,6 +12,9 @@ interface LinkedList {
     addNewElementInTail: (data: number) => LinkedList,
     deleteElementFromFront: () => LinkedList,
     deleteElementFromEnd: () => LinkedList,
+    isThere: (data: number) => boolean,
+    getNodeUsingIndex: (index: number) => Node | null,
+    printAllValuesFromTop: () => void,
 }
 
 const createNode = (data: number) =>  {
@@ -84,6 +87,36 @@ const createLinkedList = () => {
             this.length--
             return this
         },
+        isThere(data : number) {
+            if(!this.head || !this.tail || this.length === 0) return false
+            if(this.length === 1){
+                if(this.head.data === data || this.tail.data === data) return true
+                return false
+            }
+            let current : Node | null = this.head
+            while(current != null){
+                if(current.data === data) return true
+                current = current.next
+            }
+            return false
+        },
+        getNodeUsingIndex(index : number) {
+           if(!this.head || !this.tail || this.length < 1 || index >= this.length) return null
+           if(index === 0) return this.head
+           let node : Node | null = this.head
+           for(let i = 1; i <= index; i++){
+            if(node.next) node = node?.next
+            else return null
+           }
+           return node
+        },
+        printAllValuesFromTop() {
+            let current : Node | null = this.head
+            while (current != null){
+                console.log(current.data)
+                current = current.next
+            }
+        },
     }
     return list
 }
@@ -92,7 +125,7 @@ let list = createLinkedList()
 list.addNewElementInFront(5)
 list.addNewElementInFront(2)
 list.addNewElementInTail(9)
-list.deleteElementFromEnd()
 console.log(list)
+console.log(list.getNodeUsingIndex(2))
 
 export {}
