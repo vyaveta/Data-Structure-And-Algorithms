@@ -2,7 +2,7 @@
 
 ## Contains the code and explanation to implement popular/common datastructures and algorithms.
 
-This repo helps not only helps you to learn DataStructures and algorithms, but also Typescript,
+This repo not only helps you to learn DataStructures and algorithms, but also Typescript,
 This repo contains the advanced way of how to make your code shorter in Typescript/Javascript.
 
 ## What you will learn from this repo
