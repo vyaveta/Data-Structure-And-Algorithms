@@ -42,7 +42,7 @@ const createLinkedList = () : LinkedList => {
 }
 
 // Function that sorts the linkes list in Ascending order.
-const selectionSortAscendingLinkedList = (list: LinkedList) : LinkedList => {
+const selectionSortLinkedListAscending = (list: LinkedList) : LinkedList => {
     let current : Node | null = list.head
     while(current){ // looping through the linked list
         let minNode : Node = current // locking the head node and considering it as the min Node
@@ -91,7 +91,9 @@ list.pushToHead(100)
 list.pushToHead(9)
 list.pushToHead(3)
 list.pushToHead(99)
-const AscendingList = selectionSortAscendingLinkedList(list)
+const AscendingList = selectionSortLinkedListAscending(list)
 printAllDatas(AscendingList)
+
+// how to sort a linked list using selectionsort algo in javascript?
 
 export{}
