@@ -11,6 +11,10 @@ interface BinarySearchTree {
     preOrder: (root: Node | null) => void,
     inOrder: (root: Node | null) => void,
     postOrder: (root: Node | null) => void,
+    delete: (data: number,) => void,
+    deleteNode: (root: Node | null, data: number) => any,
+    findMin: (root : Node | null) =>  number,
+    findMax: (root: Node | null) => null | Function | number,
 }
 
 const createNode = (data: number) : Node => { // this function create a node and returns it
@@ -45,6 +49,22 @@ function searchNode(node: Node | null, data: number) : any{
     else if(node.data > data)  searchNode(node.left,data)
     else searchNode(node.right,data)
 }
+
+// function deleteNode(node: Node | null , data: number): Node | null {
+//     if(!node) return node
+//     if(data < node.data){
+//         node.left = deleteNode(node.left,data)
+//     }
+//     else if(data > node.data){
+//         node.right = deleteNode(node.right,data)
+//     }
+//     else{
+//         if(!node.left && !node.right) return null
+//         if(!node.left) return node.right
+//         if(!node.right) return node.left
+
+//     }
+// }
 
 const createBinarySearchTree = () : BinarySearchTree => {
     const tree : BinarySearchTree ={
@@ -88,6 +108,45 @@ const createBinarySearchTree = () : BinarySearchTree => {
                 process.stdout.write(`${root.data} => `)
             }
         },
+        delete(data: number){
+            this.root = this.deleteNode(this.root,data)
+            console.log(this.root,'is the new root')
+        },
+        findMin(root: Node | null) :  number{
+            if(!this.root) return -1
+            if(!root) return -1
+            if(root?.left)  this.findMin(root.left)
+            console.log('the min value is ',root.data)
+            return root.data
+        },
+        findMax(root: Node | null){
+            if(!root) return null
+            if(root.right) return this.findMax(root.right)
+            console.log('the max value is', root.data)
+            return root.data
+        },
+        deleteNode(node: Node | null , data: number): any {
+            if(!node || node === null) {
+                console.log('here')
+                return node
+            }
+            if(data < node.data){
+                console.log('data < node.data',node.data)
+                node.left =  this.deleteNode(node.left,data)
+            }
+            else if(data > node.data){
+                console.log('dataa > node.data',node.data)
+                node.right = this.deleteNode(node.right,data)
+            }
+            else{
+                if(!node.left && !node.right) return null
+                if(!node.left) return node.right
+                if(!node.right) return node.left
+                node.data = this.findMin(node.right)
+                node.right = this.deleteNode(node.right,node.data)
+            }
+            return node
+        }
     }
     return tree
 }
@@ -97,8 +156,9 @@ tr.addNode(10)
 tr.addNode(5)
 tr.addNode(15)
 tr.addNode(3)
-tr.addNode(7)
- 
-tr.postOrder(tr.root)
+tr.delete(10)
+
+tr.preOrder(tr.root)
+console.log(tr.root)
 
 export{}
